@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:mariadb://160.16.240.58:3306/draft
+    username: masad
+    password: sakura_mysql
+    driver-class-name: org.mariadb.jdbc.Driver
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
