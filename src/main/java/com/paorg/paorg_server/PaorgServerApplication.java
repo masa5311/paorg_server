@@ -5,6 +5,9 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.io.IOException;
 
@@ -26,6 +29,21 @@ public class PaorgServerApplication {
       e.printStackTrace();
     }
     FirebaseApp.initializeApp(options);
+  }
+
+  /**
+   * CORS対策
+   * @return CORS対策追加後の設定
+   */
+  @Bean
+  public WebMvcConfigurer corsConfigurer() {
+    return new WebMvcConfigurer() {
+      @Override
+      public void addCorsMappings(CorsRegistry registry) {
+        // TODO 環境別の指定追加
+        registry.addMapping("/*").allowedOrigins("http://localhost:3000");
+      }
+    };
   }
 
 }
