@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mariadb://160.16.240.58:3306/draft
+    url: jdbc:mariadb://160.16.240.58:3306/paorg
     username: masad
     password: sakura_mysql
     driver-class-name: org.mariadb.jdbc.Driver
