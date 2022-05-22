@@ -27,6 +27,9 @@ public class Nomination extends TableEntityBase {
   @Column(name = "year", nullable = false)
   private Integer year;
 
+  @Column(name = "owner_id", nullable = false)
+  private Integer ownerId;
+
   // @Column(name = "user_id", nullable = false)
   // private Integer userId;
 
