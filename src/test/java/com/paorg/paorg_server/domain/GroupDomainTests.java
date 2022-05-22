@@ -21,11 +21,11 @@ class GroupDomainTests {
   @Autowired
   private GroupDomain target;
 
-  @Test
-  public void testFindList() {
-    GroupWithOwnerWithUser result = this.target.findOwnerListWithRanking(1);
-    assertNotNull(result);
-    System.out.println(result);
-  }
+  // @Test
+  // public void testFindList() {
+  //   GroupWithOwnerWithUser result = this.target.findOwnerListWithRanking(1);
+  //   assertNotNull(result);
+  //   System.out.println(result);
+  // }
 
 }

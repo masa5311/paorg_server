@@ -15,7 +15,7 @@ public class GroupController {
   @PostMapping("/get_owner_list_with_ranking")
   public String getOwnerListWithRanking(@RequestBody String contents) {
 
-    return this.groupService.findOwnerListWithRanking(contents);
+    return this.groupService.findOwnerListWithPoint(contents);
   }
 
 }
