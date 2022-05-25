@@ -15,20 +15,30 @@ import lombok.Getter;
 
 import java.io.Serializable;
 
-@AllArgsConstructor
 @Getter
 public class OwnerBean extends BeanBase implements Serializable {
-  // @JsonIgnore
-  private Integer id;
-  // @JsonIgnore
-  private String displayName;
+  @JsonIgnore
+  private Id id;
+  @JsonIgnore
+  private Name displayName;
   // @JsonIgnore
   private Long point;
 
-  // @JsonProperty(value = "id")
-  // public Integer getId() {
-  //   return this.id;
-  // }
+  public OwnerBean(Integer id, String displayName, Long point) {
+    this.id = new Id(id);
+    this.displayName = new Name(displayName);
+    this.point = point;
+  }
+
+  @JsonProperty(value = "id")
+  public Integer getId() {
+    return this.id.getValue();
+  }
+
+  @JsonProperty(value = "displayName")
+  public String getDisplayName() {
+    return this.displayName.getValue();
+  }
 
   @JsonIgnore
   @Override
