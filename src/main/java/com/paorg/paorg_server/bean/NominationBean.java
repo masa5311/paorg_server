@@ -3,20 +3,14 @@ package com.paorg.paorg_server.bean;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.paorg.paorg_server.entity.EntityInterface;
 import com.paorg.paorg_server.entity.Nomination;
-import com.paorg.paorg_server.entity.Test;
 import com.paorg.paorg_server.entity.type.NominationStatus;
-import com.paorg.paorg_server.valueobject.Id;
-import com.paorg.paorg_server.valueobject.NominationRank;
-import com.paorg.paorg_server.valueobject.Year;
+import com.paorg.paorg_server.valueobject.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.io.Serializable;
-import java.time.Instant;
 
 /**
  * 指名情報を持つ
@@ -29,11 +23,15 @@ public class NominationBean extends BeanBase implements Serializable {
   @JsonIgnore
   private Year year;
   @JsonIgnore
-  private Id userId;
+  private Id ownerId;
   @JsonIgnore
   private NominationRank nominateRank;
   @JsonIgnore
   private Id horseId;
+  @JsonIgnore
+  private HorseName horseName;
+  @JsonIgnore
+  private Sex sex;
   @JsonIgnore
   private NominationStatus nominationStatus;
 
@@ -43,6 +41,8 @@ public class NominationBean extends BeanBase implements Serializable {
     // this.userId = new Id(entity.getUserId());
     this.nominateRank = new NominationRank(entity.getNominateRank());
     // this.horseId = new Id(entity.getHorseId());
+    this.horseName = new HorseName(entity.getHorse().getName());
+    this.sex = new Sex(entity.getHorse().getSex().getName());
     this.nominationStatus = entity.getNominationStatus();
   }
 
@@ -56,10 +56,10 @@ public class NominationBean extends BeanBase implements Serializable {
     return this.year.getValue();
   }
 
-  @JsonProperty(value = "userId")
-  public Integer getUserId() {
-    return this.userId.getValue();
-  }
+  // @JsonProperty(value = "ownerId")
+  // public Integer getOwnerId() {
+  //   return this.ownerId.getValue();
+  // }
 
   @JsonProperty(value = "nominateRank")
   public Integer getNominateRank() {
@@ -70,6 +70,14 @@ public class NominationBean extends BeanBase implements Serializable {
   // public Integer getHorseId() {
   //   return this.horseId.getValue();
   // }
+
+  @JsonProperty(value = "horseName")
+  public String getHorseName() {
+    return this.horseName.getValue();
+  }
+
+  @JsonProperty(value = "sex")
+  public String getSex() { return  this.sex.getValue(); }
 
   @JsonProperty(value = "nominationStatusCode")
   public Integer getNominationStatus() {

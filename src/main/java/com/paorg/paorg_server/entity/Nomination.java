@@ -1,13 +1,12 @@
 package com.paorg.paorg_server.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.paorg.paorg_server.entity.type.NominationStatus;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 /**
  * 指名馬エンティティ（結合なし）
@@ -56,4 +55,9 @@ public class Nomination extends TableEntityBase {
   public void setNominationStatus(NominationStatus nominationStatus) {
     this.nominationStatus = nominationStatus;
   }
+
+  @OneToOne
+  @JoinColumn(insertable = false, updatable = false)
+  private Horse horse;
+
 }

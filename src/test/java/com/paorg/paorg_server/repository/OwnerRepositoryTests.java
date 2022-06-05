@@ -1,11 +1,13 @@
 package com.paorg.paorg_server.repository;
 
+import com.paorg.paorg_server.bean.OwnerBean;
 import com.paorg.paorg_server.entity.Owner;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
@@ -28,14 +30,26 @@ class OwnerRepositoryTests {
 
   }
 
-  // @Test
-  // public void testFindByGroupId() {
-  //
-  //   List<GroupUser> groupUserList =
-  //     this.target.findByGroupId().orElse(new ArrayList<>());
-  //
-  //   System.out.println(groupUserList);
-  //
-  // }
+  @Test
+  public void testFindByGroupIdWithPoint() {
+
+    List<OwnerBean> groupList = this.target.findByGroupIdWithPoint(1, 2021)
+      .orElse(new ArrayList<>());
+
+    System.out.println(groupList);
+
+  }
+
+  @Test
+  public void testFindByGroupId() {
+
+    List<Owner> ownerList = this.target.findOwnerListWithNomination(1, 2021);
+
+    System.out.println(ownerList);
+    System.out.println(ownerList.size());
+    // System.out.println(ownerList.get(0).getNomination().size());
+
+
+  }
 
 }
