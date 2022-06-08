@@ -35,8 +35,8 @@ public class Nomination extends TableEntityBase {
   @Column(name = "nominate_rank", nullable = false)
   private Integer nominateRank;
 
-  @Column(name = "horse_id", nullable = false)
-  private Integer horseId;
+  @Column(name = "crop_id", nullable = false)
+  private Integer cropId;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "nomination_status", nullable = false)
@@ -58,6 +58,6 @@ public class Nomination extends TableEntityBase {
 
   @OneToOne
   @JoinColumn(insertable = false, updatable = false)
-  private Horse horse;
+  private Crop crop;
 
 }

@@ -28,8 +28,8 @@ public interface OwnerRepository extends
     " from Group g" +
     "     join Owner o on g.id = :groupId and g.id = o.groupId" +
     "     join Nomination n on n.year = :year and o.id = n.ownerId" +
-    "     join Horse h on n.horseId = h.id" +
-    "     join RaceByHorse rbh on h.id = rbh.horseId" +
+    "     join Crop c on n.cropId = c.id" +
+    "     join RaceByHorse rbh on c.id = rbh.horseId" +
     "     join Race r on rbh.raceId = r.id" +
     "     join Rule r2" +
     "         on concat(r.raceConditionCode,  coalesce(r.raceGradeCode, '') ) =" +
@@ -52,7 +52,7 @@ public interface OwnerRepository extends
    * @return
    */
   @Query("select distinct o from Owner o inner join fetch o.nominationList n " +
-    "inner join fetch n.horse h where o.groupId = :groupId and n.year = :year" +
+    "inner join fetch n.crop c where o.groupId = :groupId and n.year = :year" +
     " and n.nominationStatus = 'confirmed' order by n.nominateRank")
   List<Owner> findOwnerListWithNomination(Integer groupId, Integer year);
 

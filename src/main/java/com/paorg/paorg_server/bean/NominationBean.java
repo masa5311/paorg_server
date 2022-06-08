@@ -41,8 +41,8 @@ public class NominationBean extends BeanBase implements Serializable {
     // this.userId = new Id(entity.getUserId());
     this.nominateRank = new NominationRank(entity.getNominateRank());
     // this.horseId = new Id(entity.getHorseId());
-    this.horseName = new HorseName(entity.getHorse().getName());
-    this.sex = new Sex(entity.getHorse().getSex().getName());
+    this.horseName = new HorseName(entity.getCrop().getName());
+    this.sex = new Sex(entity.getCrop().getSex().getName());
     this.nominationStatus = entity.getNominationStatus();
   }
 
