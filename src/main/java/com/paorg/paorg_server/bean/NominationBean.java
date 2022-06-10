@@ -13,7 +13,7 @@ import lombok.Getter;
 import java.io.Serializable;
 
 /**
- * 指名情報を持つ
+ * 指名馬情報
  */
 @AllArgsConstructor
 @Getter
@@ -33,6 +33,14 @@ public class NominationBean extends BeanBase implements Serializable {
   @JsonIgnore
   private Sex sex;
   @JsonIgnore
+  private BreedingHorseName sireName;
+  @JsonIgnore
+  private BreedingHorseName damName;
+  @JsonIgnore
+  private Name trainerName;
+  @JsonIgnore
+  private TrainerShozokuPlace trainerShozokuPlace;
+  @JsonIgnore
   private NominationStatus nominationStatus;
 
   public NominationBean(Nomination entity) {
@@ -43,6 +51,11 @@ public class NominationBean extends BeanBase implements Serializable {
     // this.horseId = new Id(entity.getHorseId());
     this.horseName = new HorseName(entity.getCrop().getName());
     this.sex = new Sex(entity.getCrop().getSex().getName());
+    this.sireName = new BreedingHorseName(entity.getCrop().getSire().getName());
+    this.damName = new BreedingHorseName(entity.getCrop().getDam().getName());
+    this.trainerName = new Name(entity.getCrop().getTrainerName());
+    this.trainerShozokuPlace =
+      new TrainerShozokuPlace(entity.getCrop().getTrainerShozokuPlace());
     this.nominationStatus = entity.getNominationStatus();
   }
 
@@ -77,7 +90,29 @@ public class NominationBean extends BeanBase implements Serializable {
   }
 
   @JsonProperty(value = "sex")
-  public String getSex() { return  this.sex.getValue(); }
+  public String getSex() {
+    return this.sex.getValue();
+  }
+
+  @JsonProperty(value = "trainerName")
+  public String getTrainerName() {
+    return this.trainerName.getValue();
+  }
+
+  @JsonProperty(value = "trainerShozokuPlace")
+  public String getTrainerShozokuPlace() {
+    return this.trainerShozokuPlace.getValue();
+  }
+
+  @JsonProperty(value = "sireName")
+  public String getSireName() {
+    return this.sireName.getValue();
+  }
+
+  @JsonProperty(value = "damName")
+  public String getDamName() {
+    return this.damName.getValue();
+  }
 
   @JsonProperty(value = "nominationStatusCode")
   public Integer getNominationStatus() {

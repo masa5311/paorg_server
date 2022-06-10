@@ -21,8 +21,8 @@ public class Racehorse {
   @JoinColumn(name = "sex_code")
   private Sex sex;
 
-  // @ManyToOne(fetch = FetchType.LAZY)
-  // @JoinColumn(name = "trainer_id")
-  // private Trainer trainer;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "trainer_id")
+  private Trainer trainer;
 
 }

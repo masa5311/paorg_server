@@ -45,4 +45,34 @@ public class Crop {
     return this.racehorse.getName();
   }
 
+  /**
+   * 調教師名を取得する
+   * ・競走馬未登録
+   * 　→空文字
+   * ・競走馬登録済
+   * 　→調教師名
+   * @return 調教師名
+   */
+  public String getTrainerName() {
+    if (this.racehorse == null) {
+      return "";
+    }
+    return this.racehorse.getTrainer().getName();
+  }
+
+  /**
+   * 調教師の所属を取得する
+   * ・競走馬未登録
+   * 　→空文字
+   * ・競走馬登録済
+   * 　→調教師の所属
+   * @return 調教師の所属
+   */
+  public String getTrainerShozokuPlace() {
+    if (this.racehorse == null) {
+      return "";
+    }
+    return this.racehorse.getTrainer().getTrainerShozoku().getPlace();
+  }
+
 }
