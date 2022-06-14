@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 /**
- * 指名馬エンティティ（結合なし）
+ * 指名馬エンティティ
  */
 @Table(name = "nomination")
 @Entity
@@ -31,6 +31,9 @@ public class Nomination extends TableEntityBase {
 
   // @Column(name = "user_id", nullable = false)
   // private Integer userId;
+
+  @Column(name = "status")
+  private Integer status;
 
   @Column(name = "nominate_rank", nullable = false)
   private Integer nominateRank;

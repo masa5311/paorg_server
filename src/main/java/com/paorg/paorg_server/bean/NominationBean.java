@@ -1,8 +1,10 @@
 package com.paorg.paorg_server.bean;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.paorg.paorg_server.entity.Crop;
 import com.paorg.paorg_server.entity.EntityInterface;
 import com.paorg.paorg_server.entity.Nomination;
 import com.paorg.paorg_server.entity.type.NominationStatus;
@@ -11,6 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.io.Serializable;
+import java.util.Optional;
 
 /**
  * 指名馬情報
@@ -18,6 +21,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Getter
 public class NominationBean extends BeanBase implements Serializable {
+  // 指名ID
   @JsonIgnore
   private Id id;
   @JsonIgnore
@@ -42,6 +46,8 @@ public class NominationBean extends BeanBase implements Serializable {
   private TrainerShozokuPlace trainerShozokuPlace;
   @JsonIgnore
   private NominationStatus nominationStatus;
+  @JsonIgnore
+  private Point point;
 
   public NominationBean(Nomination entity) {
     this.id = new Id(entity.getId());
@@ -54,9 +60,15 @@ public class NominationBean extends BeanBase implements Serializable {
     this.sireName = new BreedingHorseName(entity.getCrop().getSire().getName());
     this.damName = new BreedingHorseName(entity.getCrop().getDam().getName());
     this.trainerName = new Name(entity.getCrop().getTrainerName());
-    this.trainerShozokuPlace =
-      new TrainerShozokuPlace(entity.getCrop().getTrainerShozokuPlace());
+    this.trainerShozokuPlace = new TrainerShozokuPlace(
+      entity.getCrop().getTrainerShozokuPlace());
     this.nominationStatus = entity.getNominationStatus();
+  }
+
+  public NominationBean(Integer id, Crop crop, Long point) {
+    this.id = new Id(id);
+    this.horseName = new HorseName(crop.getName());
+    this.point = new Point(point);
   }
 
   @JsonProperty(value = "id")
@@ -65,8 +77,10 @@ public class NominationBean extends BeanBase implements Serializable {
   }
 
   @JsonProperty(value = "year")
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   public Integer getYear() {
-    return this.year.getValue();
+    return Optional.ofNullable(this.year).map(value -> value.getValue())
+      .orElse(null);
   }
 
   // @JsonProperty(value = "ownerId")
@@ -75,8 +89,10 @@ public class NominationBean extends BeanBase implements Serializable {
   // }
 
   @JsonProperty(value = "nominateRank")
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   public Integer getNominateRank() {
-    return this.nominateRank.getValue();
+    return Optional.ofNullable(this.nominateRank).map(value -> value.getValue())
+      .orElse(null);
   }
 
   // @JsonProperty(value = "horseId")
@@ -86,37 +102,57 @@ public class NominationBean extends BeanBase implements Serializable {
 
   @JsonProperty(value = "horseName")
   public String getHorseName() {
-    return this.horseName.getValue();
+    return Optional.ofNullable(this.horseName).map(value -> value.getValue())
+      .orElse(null);
   }
 
   @JsonProperty(value = "sex")
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   public String getSex() {
-    return this.sex.getValue();
+    return Optional.ofNullable(this.sex).map(value -> value.getValue())
+      .orElse(null);
   }
 
   @JsonProperty(value = "trainerName")
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   public String getTrainerName() {
-    return this.trainerName.getValue();
+    return Optional.ofNullable(this.trainerName).map(value -> value.getValue())
+      .orElse(null);
   }
 
   @JsonProperty(value = "trainerShozokuPlace")
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   public String getTrainerShozokuPlace() {
-    return this.trainerShozokuPlace.getValue();
+    return Optional.ofNullable(this.trainerShozokuPlace)
+      .map(value -> value.getValue()).orElse(null);
   }
 
   @JsonProperty(value = "sireName")
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   public String getSireName() {
-    return this.sireName.getValue();
+    return Optional.ofNullable(this.sireName).map(value -> value.getValue())
+      .orElse(null);
   }
 
   @JsonProperty(value = "damName")
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   public String getDamName() {
-    return this.damName.getValue();
+    return Optional.ofNullable(this.damName).map(value -> value.getValue())
+      .orElse(null);
   }
 
   @JsonProperty(value = "nominationStatusCode")
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   public Integer getNominationStatus() {
-    return this.nominationStatus.getCode();
+    return Optional.ofNullable(this.nominationStatus)
+      .map(value -> value.getCode()).orElse(null);
+  }
+
+  @JsonProperty(value = "point")
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  public Long getPoint() {
+    return Optional.ofNullable(this.point).map(value -> value.getValue())
+      .orElse(null);
   }
 
   @JsonIgnore

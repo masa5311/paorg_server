@@ -23,7 +23,7 @@ public class OwnerDomain {
   private final OwnerRepository repository;
 
   /**
-   * グループIDを元にオーナーを検索する
+   * グループIDを元にオーナーを取得する
    * ・年度を指定
    * ・オーナーごとのポイントを取得する
    * @param groupId グループID
@@ -34,6 +34,12 @@ public class OwnerDomain {
     return this.repository.findByGroupIdWithPoint(groupId, year).orElse(new ArrayList<>());
   }
 
+  /**
+   * グループ内の各オーナー別指名馬一覧を取得する
+   * @param groupId
+   * @param year
+   * @return
+   */
   public List<OwnerBean> findOwnerListWithNomination(Integer groupId, Integer year) {
 
     List<Owner> ownerList = this.repository.findOwnerListWithNomination(groupId, year);

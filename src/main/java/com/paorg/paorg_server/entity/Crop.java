@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -36,13 +37,13 @@ public class Crop {
    * 　→母親名 + 年度（血統登録番号の先頭4文字）
    * ・競走馬登録済
    * 　→登録名
+   *
    * @return 馬名
    */
   public String getName() {
-    if (this.racehorse == null) {
-      return this.dam.getName() + this.id.toString().substring(0, 4);
-    }
-    return this.racehorse.getName();
+    return Optional.ofNullable(this.racehorse).map(value -> {
+      return value.getName();
+    }).orElse(this.dam.getName() + this.id.toString().substring(0, 4));
   }
 
   /**
@@ -51,13 +52,13 @@ public class Crop {
    * 　→空文字
    * ・競走馬登録済
    * 　→調教師名
+   *
    * @return 調教師名
    */
   public String getTrainerName() {
-    if (this.racehorse == null) {
-      return "";
-    }
-    return this.racehorse.getTrainer().getName();
+    return Optional.ofNullable(this.racehorse).map(value -> {
+      return value.getTrainer().getName();
+    }).orElse("");
   }
 
   /**
@@ -66,13 +67,13 @@ public class Crop {
    * 　→空文字
    * ・競走馬登録済
    * 　→調教師の所属
+   *
    * @return 調教師の所属
    */
   public String getTrainerShozokuPlace() {
-    if (this.racehorse == null) {
-      return "";
-    }
-    return this.racehorse.getTrainer().getTrainerShozoku().getPlace();
+    return Optional.ofNullable(this.racehorse).map(value -> {
+      return value.getTrainer().getTrainerShozoku().getPlace();
+    }).orElse("");
   }
 
 }

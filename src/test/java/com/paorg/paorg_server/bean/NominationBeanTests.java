@@ -1,5 +1,7 @@
 package com.paorg.paorg_server.bean;
 
+import com.paorg.paorg_server.entity.BreedingHorse;
+import com.paorg.paorg_server.entity.Crop;
 import com.paorg.paorg_server.entity.EntityInterface;
 import com.paorg.paorg_server.entity.Nomination;
 import com.paorg.paorg_server.valueobject.Id;
@@ -17,12 +19,15 @@ class NominationBeanTests {
   private NominationBean target;
 
   @Test
-  public void testToEntity() {
-    // target = new NominationBean(new Id(1), new Name("テスト"));
-    // Nomination result = (Nomination) this.target.toEntity();
+  public void testToString() {
+    Crop crop = new Crop();
+    crop.setId(1234567890);
+    BreedingHorse dam = new BreedingHorse();
+    dam.setName("dam");
+    crop.setDam(dam);
+    target = new NominationBean(1, crop, 10000L);
 
-    // assertEquals(target.getId(), result.getId());
-
+    System.out.println(target.toString());
   }
 
 }

@@ -5,17 +5,13 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
-@Getter
-@Setter
-public class TrainerShozokuPlace implements Serializable {
-
-  private String value;
+/**
+ * 調教師所属
+ */
+public class TrainerShozokuPlace extends ValueObjectBase<String> implements
+  Serializable {
 
   public TrainerShozokuPlace(String value) {
-    this.value = value;
-  }
-
-  public TrainerShozokuPlace() {
-
+    super(value);
   }
 }
