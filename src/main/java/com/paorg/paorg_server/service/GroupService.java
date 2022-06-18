@@ -27,12 +27,29 @@ public class GroupService {
   private final NominationDomain nominationDomain;
 
   /**
-   * グループ内オーナー別ポイント情報取得
-   * ・グループ指定
-   * ・年度指定
+   * グループ内オーナー別ポイント取得
+   * ■条件
+   * ・グループID
+   * ・年度
    *
-   * @param input Json
-   * @return グループ内オーナー別ポイント情報Json文字列
+   * ■内容
+   * １．オーナー別ポイント取得
+   * ２．ランキング判定
+   *  １．取得したオーナーリストを先頭から判定
+   *  　１．1件目
+   *      ・順位：1位
+   *      ・ランキング保持
+   *      ・ポイント保持
+   *  　２．2件目以降
+   *  　　１．保持しているポイントと同じ場合
+   *      ・順位：保持していたポイントの順位
+   *     ２．保持しているポイントと異なる場合
+   *      ・順位：ループのインデックス + 1
+   *      ・保持ランキング更新：ループのインデックス + 1
+   *      ・保持ポイント更新
+   *
+   * @param input Json：検索条件
+   * @return グループ内オーナー別ポイントJson文字列
    */
   @SneakyThrows
   public String findOwnerListWithPoint(String input) {
@@ -40,7 +57,34 @@ public class GroupService {
     Integer groupId = PropertyName.GROUP_ID.getValueFromJson(input);
     Integer year = PropertyName.YEAR.getValueFromJson(input);
 
-    return ownerDomain.findByGroupIdWithPoint(groupId, year).toString();
+    // １．オーナー別ポイント取得
+    List<OwnerBean> ownerBeanList = ownerDomain.findByGroupIdWithPoint(
+      groupId, year);
+
+    // ２．ランキング判定
+    OwnerBean ownerBean = null;
+    Integer previousRanking = 0;
+    Point previousPoint = null;
+    Point point = null;
+    for (int i = 0; i < ownerBeanList.size(); i++) {
+      ownerBean = ownerBeanList.get(i);
+      if (previousPoint != null) {
+        point = ownerBean.getPoint();
+        if (previousPoint.equals(point)) {
+          ownerBean.setRanking(previousRanking);
+        } else {
+          ownerBean.setRanking(i + 1);
+          previousRanking = i + 1;
+          previousPoint = point;
+        }
+      } else {
+        ownerBean.setRanking(1);
+        previousRanking = 1;
+        previousPoint = ownerBean.getPoint();
+      }
+    }
+
+    return ownerBeanList.toString();
   }
 
   /**
@@ -53,7 +97,7 @@ public class GroupService {
    * ・グループIDと年度を元に指名馬リストを取得
    * ・取得した指名馬ごとのレース出走回数、ポイントを取得
    *
-   * @param input Json
+   * @param input Json：検索条件
    * @return グループ内オーナー別指名馬一覧Json文字列
    */
   @SneakyThrows

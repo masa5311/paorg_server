@@ -25,6 +25,14 @@ class GroupServiceTests {
   private GroupService target;
 
   @Test
+  void testFindOwnerListWithPoint() {
+    String result = this.target.findOwnerListWithPoint("{\"groupId\": 1," +
+      "\"year\": 2022}");
+
+    System.out.println(result);
+  }
+
+  @Test
   public void testFindOwnerListWithNomination() {
 
     String result = this.target.findOwnerListWithNomination("{\"groupId\": 1," +

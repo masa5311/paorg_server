@@ -18,6 +18,7 @@ public interface OwnerRepository extends
    * グループIDを元にオーナーを検索する（JPQL）
    * ・年度指定
    * ・オーナーごとのポイントを計算
+   * ・ポイントでソート（降順）
    *
    * @param groupId グループID
    * @param year    年度
