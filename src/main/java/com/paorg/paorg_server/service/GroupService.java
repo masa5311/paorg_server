@@ -1,5 +1,6 @@
 package com.paorg.paorg_server.service;
 
+import com.paorg.paorg_server.bean.NominationBean;
 import com.paorg.paorg_server.bean.OwnerBean;
 import com.paorg.paorg_server.common.PropertyName;
 import com.paorg.paorg_server.domain.GroupDomain;
@@ -50,7 +51,7 @@ public class GroupService {
    *
    * ■内容
    * ・グループIDと年度を元に指名馬リストを取得
-   * ・取得した指名馬ごとのポイントを取得
+   * ・取得した指名馬ごとのレース出走回数、ポイントを取得
    *
    * @param input Json
    * @return グループ内オーナー別指名馬一覧Json文字列
@@ -62,11 +63,19 @@ public class GroupService {
     Integer year = PropertyName.YEAR.getValueFromJson(input);
     List<OwnerBean> ownerBeanList = ownerDomain.findOwnerListWithNomination(
       groupId, year);
+
+    // オーナーごとに処理
     ownerBeanList.forEach(ownerBean -> {
+      // 指名馬ごとにレース出走回数とポイントを取得
       ownerBean.getNominationBeanList().forEach(nominationBean -> {
         Integer nominationId = nominationBean.getId();
-        Long point = this.nominationDomain.findByNominationPoint(groupId,
-          nominationId);
+        NominationBean result =
+          this.nominationDomain.findByNominationPoint(groupId,
+            nominationId).orElse(new NominationBean(nominationId, 0L, 0L));
+        nominationBean.setNumberOfRaces(result.getNumberOfRaces());
+
+        // レース出走済でポイントがない場合、pointがnullで格納されているため0に変換
+        Long point = result.getPoint() == null ? 0L : result.getPoint();
         nominationBean.setPoint(new Point(point));
       });
     });

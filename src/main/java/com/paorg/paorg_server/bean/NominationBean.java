@@ -45,6 +45,8 @@ public class NominationBean extends BeanBase implements Serializable {
   private TrainerShozokuPlace trainerShozokuPlace;
   /** 指名ステータス */
   private NominationStatus nominationStatus;
+  /** レース出走回数 */
+  private Long numberOfRaces;
   /** ポイント */
   private Point point;
 
@@ -65,11 +67,12 @@ public class NominationBean extends BeanBase implements Serializable {
     this.nominationStatus = entity.getNominationStatus();
   }
 
-  public NominationBean(Integer id, Crop crop, Long point) {
+  public NominationBean(Integer id, Long numberOfRaces, Long point) {
     this.id = new Id(id);
-    this.pedigreeRegistrationNumber = new PedigreeRegistrationNumber(
-      crop.getId());
-    this.horseName = new HorseName(crop.getName());
+    // this.pedigreeRegistrationNumber = new PedigreeRegistrationNumber(
+    //   crop.getId());
+    // this.horseName = new HorseName(crop.getName());
+    this.numberOfRaces = numberOfRaces;
     this.point = new Point(point);
   }
 
@@ -93,7 +96,7 @@ public class NominationBean extends BeanBase implements Serializable {
   }
 
   @JsonInclude(JsonInclude.Include.NON_NULL)
-  public Integer getCropId() {
+  public Integer getPedigreeRegistrationNumber() {
     return this.pedigreeRegistrationNumber == null ? null : this.pedigreeRegistrationNumber.getValue();
   }
 

@@ -1,5 +1,6 @@
 package com.paorg.paorg_server.repository;
 
+import com.paorg.paorg_server.bean.NominationBean;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -46,8 +47,9 @@ class NominationRepositoryTests {
 
   @Test
   public void testFindByNominationPoint() {
-    Long point = this.target.findByNominationPoint(1, 475).orElse(0L);
-    System.out.println(point);
+    NominationBean result =
+      this.target.findByNominationNumberOfRacesAndPoint(1, 475).orElse(null);
+    System.out.println(result);
   }
 
 }

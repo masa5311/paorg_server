@@ -25,7 +25,7 @@ class NominationBeanTests {
     BreedingHorse dam = new BreedingHorse();
     dam.setName("dam");
     crop.setDam(dam);
-    target = new NominationBean(1, crop, 10000L);
+    target = new NominationBean(1, 5L, 10000L);
 
     System.out.println(target.toString());
   }
