@@ -33,7 +33,7 @@ class OwnerRepositoryTests {
   @Test
   public void testFindByGroupIdWithPoint() {
 
-    List<OwnerBean> groupList = this.target.findByGroupIdWithPoint(1, 2021)
+    List<OwnerBean> groupList = this.target.findByGroupIdWithPoint(1, 2022)
       .orElse(new ArrayList<>());
 
     System.out.println(groupList);

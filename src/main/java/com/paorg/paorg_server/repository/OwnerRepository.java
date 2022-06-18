@@ -30,11 +30,11 @@ public interface OwnerRepository extends
     "                      and o.id = n.ownerId" +
     "                      and n.status = 3" +
     "     join Crop c on n.cropId = c.id" +
-    "     join RaceByHorse rbh on c.id = rbh.horseId" +
-    "     join Race r on rbh.raceId = r.id" +
+    "     left outer join RaceByHorse rbh on c.id = rbh.horseId" +
+    "     left outer join Race r on rbh.raceId = r.id" +
     "     join Rule r2 on g.id = r2.groupId" +
     "          and r2.ruleStart < :year and :year < r2.ruleEnd" +
-    "     join RuleDetail rd on rd.ruleId = r2.id" +
+    "     left outer join RuleDetail rd on rd.ruleId = r2.id" +
     "        and concat(r.raceConditionCode,  coalesce(r.raceGradeCode, '') ) =" +
     "            concat(rd.raceConditionCode, coalesce(rd.raceGradeCode, '') )" +
     "                  and rbh.rank = rd.rank" +

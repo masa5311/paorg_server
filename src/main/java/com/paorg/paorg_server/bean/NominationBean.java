@@ -2,7 +2,6 @@ package com.paorg.paorg_server.bean;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.paorg.paorg_server.entity.Crop;
 import com.paorg.paorg_server.entity.EntityInterface;
@@ -11,50 +10,51 @@ import com.paorg.paorg_server.entity.type.NominationStatus;
 import com.paorg.paorg_server.valueobject.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.Optional;
 
 /**
  * 指名馬情報
  */
 @AllArgsConstructor
 @Getter
+@Setter
 public class NominationBean extends BeanBase implements Serializable {
-  // 指名ID
-  @JsonIgnore
+  /** 指名ID */
   private Id id;
-  @JsonIgnore
+  /** 年度 */
   private Year year;
-  @JsonIgnore
-  private Id ownerId;
-  @JsonIgnore
-  private NominationRank nominateRank;
-  @JsonIgnore
-  private Id horseId;
-  @JsonIgnore
+  // @JsonIgnore
+  // private Id ownerId;
+  /** 指名順位 */
+  private NominationRank nominationRank;
+  /** 血統登録番号 */
+  private PedigreeRegistrationNumber pedigreeRegistrationNumber;
+  /** 馬名 */
   private HorseName horseName;
-  @JsonIgnore
+  /** 性別 */
   private Sex sex;
-  @JsonIgnore
+  /** 父名 */
   private BreedingHorseName sireName;
-  @JsonIgnore
+  /** 母名 */
   private BreedingHorseName damName;
-  @JsonIgnore
+  /** 調教師名 */
   private Name trainerName;
-  @JsonIgnore
+  /** 調教師所属 */
   private TrainerShozokuPlace trainerShozokuPlace;
-  @JsonIgnore
+  /** 指名ステータス */
   private NominationStatus nominationStatus;
-  @JsonIgnore
+  /** ポイント */
   private Point point;
 
   public NominationBean(Nomination entity) {
     this.id = new Id(entity.getId());
     this.year = new Year(entity.getYear());
     // this.userId = new Id(entity.getUserId());
-    this.nominateRank = new NominationRank(entity.getNominateRank());
-    // this.horseId = new Id(entity.getHorseId());
+    this.nominationRank = new NominationRank(entity.getNominateRank());
+    this.pedigreeRegistrationNumber =
+      new PedigreeRegistrationNumber(entity.getCropId());
     this.horseName = new HorseName(entity.getCrop().getName());
     this.sex = new Sex(entity.getCrop().getSex().getName());
     this.sireName = new BreedingHorseName(entity.getCrop().getSire().getName());
@@ -67,20 +67,19 @@ public class NominationBean extends BeanBase implements Serializable {
 
   public NominationBean(Integer id, Crop crop, Long point) {
     this.id = new Id(id);
+    this.pedigreeRegistrationNumber = new PedigreeRegistrationNumber(
+      crop.getId());
     this.horseName = new HorseName(crop.getName());
     this.point = new Point(point);
   }
 
-  @JsonProperty(value = "id")
   public Integer getId() {
     return this.id.getValue();
   }
 
-  @JsonProperty(value = "year")
   @JsonInclude(JsonInclude.Include.NON_NULL)
   public Integer getYear() {
-    return Optional.ofNullable(this.year).map(value -> value.getValue())
-      .orElse(null);
+    return this.year == null ? null : this.year.getValue();
   }
 
   // @JsonProperty(value = "ownerId")
@@ -88,71 +87,54 @@ public class NominationBean extends BeanBase implements Serializable {
   //   return this.ownerId.getValue();
   // }
 
-  @JsonProperty(value = "nominateRank")
   @JsonInclude(JsonInclude.Include.NON_NULL)
-  public Integer getNominateRank() {
-    return Optional.ofNullable(this.nominateRank).map(value -> value.getValue())
-      .orElse(null);
+  public Integer getNominationRank() {
+    return this.nominationRank == null ? null : this.nominationRank.getValue();
   }
 
-  // @JsonProperty(value = "horseId")
-  // public Integer getHorseId() {
-  //   return this.horseId.getValue();
-  // }
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  public Integer getCropId() {
+    return this.pedigreeRegistrationNumber == null ? null : this.pedigreeRegistrationNumber.getValue();
+  }
 
-  @JsonProperty(value = "horseName")
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   public String getHorseName() {
-    return Optional.ofNullable(this.horseName).map(value -> value.getValue())
-      .orElse(null);
+    return this.horseName == null ? null : this.horseName.getValue();
   }
 
-  @JsonProperty(value = "sex")
   @JsonInclude(JsonInclude.Include.NON_NULL)
   public String getSex() {
-    return Optional.ofNullable(this.sex).map(value -> value.getValue())
-      .orElse(null);
+    return this.sex == null ? null : this.sex.getValue();
   }
 
-  @JsonProperty(value = "trainerName")
   @JsonInclude(JsonInclude.Include.NON_NULL)
   public String getTrainerName() {
-    return Optional.ofNullable(this.trainerName).map(value -> value.getValue())
-      .orElse(null);
+    return this.trainerName == null ? null : this.trainerName.getValue();
   }
 
-  @JsonProperty(value = "trainerShozokuPlace")
   @JsonInclude(JsonInclude.Include.NON_NULL)
   public String getTrainerShozokuPlace() {
-    return Optional.ofNullable(this.trainerShozokuPlace)
-      .map(value -> value.getValue()).orElse(null);
+    return this.trainerShozokuPlace == null ? null : this.trainerShozokuPlace.getValue();
   }
 
-  @JsonProperty(value = "sireName")
   @JsonInclude(JsonInclude.Include.NON_NULL)
   public String getSireName() {
-    return Optional.ofNullable(this.sireName).map(value -> value.getValue())
-      .orElse(null);
+    return this.sireName == null ? null : this.sireName.getValue();
   }
 
-  @JsonProperty(value = "damName")
   @JsonInclude(JsonInclude.Include.NON_NULL)
   public String getDamName() {
-    return Optional.ofNullable(this.damName).map(value -> value.getValue())
-      .orElse(null);
+    return this.damName == null ? null : this.damName.getValue();
   }
 
-  @JsonProperty(value = "nominationStatusCode")
   @JsonInclude(JsonInclude.Include.NON_NULL)
   public Integer getNominationStatus() {
-    return Optional.ofNullable(this.nominationStatus)
-      .map(value -> value.getCode()).orElse(null);
+    return this.nominationStatus == null ? null : this.nominationStatus.getCode();
   }
 
-  @JsonProperty(value = "point")
   @JsonInclude(JsonInclude.Include.NON_NULL)
   public Long getPoint() {
-    return Optional.ofNullable(this.point).map(value -> value.getValue())
-      .orElse(null);
+    return this.point == null ? null : this.point.getValue();
   }
 
   @JsonIgnore

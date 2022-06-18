@@ -18,6 +18,11 @@ public class NominationDomain implements DomainInterface {
   private final EntityManager em;
   private final NominationRepository repository;
 
+  public Long findByNominationPoint(Integer groupId, Integer nominationId) {
+    return this.repository.findByNominationPoint(groupId, nominationId)
+      .orElse(0L);
+  }
+
   // public List<NominationBean> findList() {
   //   List<Nomination> nominationList = this.repository.findAll();
   //   List<NominationBean> nominationBeanList = new ArrayList<>();

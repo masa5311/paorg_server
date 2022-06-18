@@ -27,8 +27,8 @@ class GroupServiceTests {
   @Test
   public void testFindOwnerListWithNomination() {
 
-    String result = this.target.findOwnerListWithNomination("{'groupId': 1, " +
-      "'year': 2020}");
+    String result = this.target.findOwnerListWithNomination("{\"groupId\": 1," +
+      "\"year\": 2021}");
 
     System.out.println(result);
 
