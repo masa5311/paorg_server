@@ -17,7 +17,8 @@ public class Trainer {
   @Column(name = "name", nullable = false)
   private String name;
 
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  // @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @ManyToOne
   @JoinColumn(name = "trainer_shozoku_id", nullable = false)
   private TrainerShozoku trainerShozoku;
 

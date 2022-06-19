@@ -17,11 +17,7 @@ public class Racehorse {
   @Column(name = "name")
   private String name;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "sex_code")
-  private Sex sex;
-
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne
   @JoinColumn(name = "trainer_id")
   private Trainer trainer;
 

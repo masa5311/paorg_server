@@ -15,15 +15,15 @@ public class Crop {
   @Column(name = "id", nullable = false)
   private Integer id;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne
   @JoinColumn(name = "sex_code")
   private Sex sex;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne
   @JoinColumn(name = "sire_breeding_horse_id")
   private BreedingHorse sire;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne
   @JoinColumn(name = "dam_breeding_horse_id")
   private BreedingHorse dam;
 
@@ -41,9 +41,8 @@ public class Crop {
    * @return 馬名
    */
   public String getName() {
-    return Optional.ofNullable(this.racehorse).map(value -> {
-      return value.getName();
-    }).orElse(this.dam.getName() + this.id.toString().substring(0, 4));
+    return Optional.ofNullable(this.racehorse).map(value -> value.getName())
+      .orElse(this.dam.getName() + this.id.toString().substring(0, 4));
   }
 
   /**
@@ -56,9 +55,8 @@ public class Crop {
    * @return 調教師名
    */
   public String getTrainerName() {
-    return Optional.ofNullable(this.racehorse).map(value -> {
-      return value.getTrainer().getName();
-    }).orElse("");
+    return Optional.ofNullable(this.racehorse)
+      .map(value -> value.getTrainer().getName()).orElse("");
   }
 
   /**
@@ -71,9 +69,9 @@ public class Crop {
    * @return 調教師の所属
    */
   public String getTrainerShozokuPlace() {
-    return Optional.ofNullable(this.racehorse).map(value -> {
-      return value.getTrainer().getTrainerShozoku().getPlace();
-    }).orElse("");
+    return Optional.ofNullable(this.racehorse)
+      .map(value -> value.getTrainer().getTrainerShozoku().getPlace())
+      .orElse("");
   }
 
 }
