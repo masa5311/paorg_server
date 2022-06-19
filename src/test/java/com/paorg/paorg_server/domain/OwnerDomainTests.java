@@ -1,6 +1,6 @@
-package com.paorg.paorg_server.repository;
+package com.paorg.paorg_server.domain;
 
-import com.paorg.paorg_server.entity.Group;
+import com.paorg.paorg_server.bean.OwnerBean;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,23 +8,25 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.transaction.Transactional;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 @SpringBootTest
-// 遅延ロードを可能とするためのトランザクション境界指定
 @Transactional
-class GroupRepositoryTests {
+class OwnerDomainTests {
 
   // 当該クラスの単体テストのみを行いたい場合（他クラスをモック化）：@InjectMocksを有効化
   // 結合テストのみ行いたい場合：@Autowiredを有効化
   // @InjectMocks
   @Autowired
-  private GroupRepository target;
+  private OwnerDomain target;
 
   @Test
-  public void testFindAll() {
-
-    List<Group> groupList = this.target.findAll();
-
-    System.out.println(groupList);
+  public void testFindOwnerListWithNomination() {
+    List<OwnerBean> result = this.target.findOwnerListWithNomination(1
+      , 2021);
+    assertNotNull(result);
+    System.out.println(result);
+    System.out.println(result.get(0).getNominationBeanList().get(0).getHorseName());
 
   }
 

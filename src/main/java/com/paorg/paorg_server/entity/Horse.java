@@ -1,15 +1,12 @@
 package com.paorg.paorg_server.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.time.Instant;
-import java.time.LocalDateTime;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Table(name = "horse")
 @Entity
@@ -34,6 +31,12 @@ public class Horse extends TableEntityBase {
 
   @Column(name = "seibetsu", nullable = false)
   private Character seibetsu;
+
+  @ManyToOne
+  private Sex sex;
+
+  // @Column(name = "sex_code", nullable = false)
+  // private String sexCode;
 
   // @Column(name = "kyusya", length = 30)
   // private String kyusya;
