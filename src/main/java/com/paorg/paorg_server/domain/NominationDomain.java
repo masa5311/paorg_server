@@ -1,12 +1,14 @@
 package com.paorg.paorg_server.domain;
 
 import com.paorg.paorg_server.bean.NominationBean;
+import com.paorg.paorg_server.bean.RaceResultBean;
 import com.paorg.paorg_server.repository.NominationRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -23,13 +25,26 @@ public class NominationDomain implements DomainInterface {
   /**
    * 指名馬ごとのレース出走回数、ポイントを取得
    * ・レース未出走の場合：null
-   * 
+   *
    * @param groupId グループID
    * @param nominationId 指名馬ID
    * @return レース出走回数、ポイント
    */
   public Optional<NominationBean> findByNominationPoint(Integer groupId, Integer nominationId) {
     return this.repository.findByNominationNumberOfRacesAndPoint(groupId, nominationId);
+  }
+
+  /**
+   * 指名馬ごとのレース出走回数、ポイントを取得
+   * ・レース未出走の場合：null
+   *
+   * @param groupId グループID
+   * @param nominationId 指名馬ID
+   * @return レース出走回数、ポイント
+   */
+  public Optional<List<RaceResultBean>> findByNominationIdOfRaceResult(Integer groupId,
+    Integer nominationId) {
+    return this.repository.findByNominationIdOfRaceResult(groupId, nominationId);
   }
 
   // public List<NominationBean> findList() {

@@ -3,7 +3,6 @@ package com.paorg.paorg_server.bean;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.paorg.paorg_server.entity.Crop;
 import com.paorg.paorg_server.entity.EntityInterface;
 import com.paorg.paorg_server.entity.Nomination;
 import com.paorg.paorg_server.entity.type.NominationStatus;
@@ -13,6 +12,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 指名馬情報
@@ -47,8 +47,13 @@ public class NominationBean extends BeanBase implements Serializable {
   private NominationStatus nominationStatus;
   /** レース出走回数 */
   private Long numberOfRaces;
+  /** レース勝利回数 */
+  private Long numberOfWins;
   /** ポイント */
   private Point point;
+  /** レース結果リスト */
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  private List<RaceResultBean> raceResultList;
 
   public NominationBean(Nomination entity) {
     this.id = new Id(entity.getId());
