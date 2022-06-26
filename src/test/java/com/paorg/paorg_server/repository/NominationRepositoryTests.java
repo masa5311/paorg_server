@@ -58,7 +58,7 @@ class NominationRepositoryTests {
   @Test
   void findByOwnerIdOfRaceResult() {
     List<RaceResultBean> raceResultBeanList = this.target.findByNominationIdOfRaceResult(1
-      , 475).orElse(new ArrayList<>());
+      , 503).orElse(new ArrayList<>());
 
     System.out.println(raceResultBeanList);
   }
