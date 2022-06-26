@@ -11,9 +11,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import java.io.Serializable;
 
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
-public class Id implements Serializable {
-  private Integer value;
+/**
+ * ID
+ */
+public class Id extends ValueObjectBase<Integer> implements Serializable {
+  public Id(Integer value) {
+    super(value);
+  }
 }

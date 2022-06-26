@@ -36,6 +36,10 @@ public class Race {
   private String raceConditionCode;
 
   @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "race_condition_code", insertable = false, updatable = false)
+  private RaceCondition raceCondition;
+
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "race_grade_code", insertable = false, updatable = false)
   private RaceGrade raceGrade;
 

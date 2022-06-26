@@ -47,13 +47,13 @@ public interface OwnerRepository extends
     @Param("groupId") Integer groupId, @Param("year") Integer year);
 
   /**
-   * グループIDを元にオーナーを検索（リレーション）
+   * グループIDを元にオーナー別の指名馬一覧を取得
    * ・年度指定
    * ・指名馬：指名が確定した指名馬を対象
    *
    * @param groupId グループID
    * @param year    年度
-   * @return オーナーごとの指名馬一覧
+   * @return オーナー別指名馬一覧
    */
   @Query("select distinct o from Owner o " +
     "     inner join fetch o.nominationList n " +

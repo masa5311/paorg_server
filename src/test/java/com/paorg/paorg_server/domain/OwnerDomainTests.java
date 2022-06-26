@@ -26,7 +26,7 @@ class OwnerDomainTests {
       , 2021);
     assertNotNull(result);
     System.out.println(result);
-    System.out.println(result.get(0).getNominationBeanList().get(0).getHorseName());
+    System.out.println(result.get(0).getNominationList().get(0).getHorseName());
 
   }
 

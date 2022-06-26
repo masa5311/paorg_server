@@ -1,11 +1,14 @@
 package com.paorg.paorg_server.repository;
 
 import com.paorg.paorg_server.bean.NominationBean;
+import com.paorg.paorg_server.bean.RaceResultBean;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootTest
 // 遅延ロードを可能とするためのトランザクション境界指定
@@ -52,4 +55,11 @@ class NominationRepositoryTests {
     System.out.println(result);
   }
 
+  @Test
+  void findByOwnerIdOfRaceResult() {
+    List<RaceResultBean> raceResultBeanList = this.target.findByNominationIdOfRaceResult(1
+      , 503).orElse(new ArrayList<>());
+
+    System.out.println(raceResultBeanList);
+  }
 }

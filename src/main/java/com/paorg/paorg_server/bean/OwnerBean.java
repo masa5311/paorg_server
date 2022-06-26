@@ -33,7 +33,7 @@ public class OwnerBean extends BeanBase implements Serializable {
 
   /** 指名馬リスト */
   @JsonInclude(JsonInclude.Include.NON_NULL)
-  private List<NominationBean> nominationBeanList;
+  private List<NominationBean> nominationList;
 
   public OwnerBean(Integer id, String displayName, Long point) {
     this.id = new Id(id);
@@ -44,10 +44,10 @@ public class OwnerBean extends BeanBase implements Serializable {
   public OwnerBean(Owner entity) {
     this.id = new Id(entity.getId());
     this.displayName = new Name(entity.getUser().getDisplayName());
-    this.nominationBeanList = new ArrayList<>();
+    this.nominationList = new ArrayList<>();
     entity.getNominationList().forEach(nomination -> {
       NominationBean bean = new NominationBean(nomination);
-      this.nominationBeanList.add(bean);
+      this.nominationList.add(bean);
     });
   }
 
