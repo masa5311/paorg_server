@@ -22,11 +22,11 @@ class NominationDomainTests {
   @Autowired
   private NominationDomain target;
 
-  @Test
-  public void testFindList() {
-    List<NominationBean> result = this.target.findList();
-    assertNotNull(result);
-  }
+  // @Test
+  // public void testFindList() {
+  //   List<NominationBean> result = this.target.findList();
+  //   assertNotNull(result);
+  // }
 
   // @Test
   // public void testFindNominationList() {

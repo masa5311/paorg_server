@@ -27,4 +27,5 @@ class GroupRepositoryTests {
     System.out.println(groupList);
 
   }
+
 }

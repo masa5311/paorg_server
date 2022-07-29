@@ -1,16 +1,15 @@
 package com.paorg.paorg_server.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.paorg.paorg_server.entity.type.NominationStatus;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 /**
- * 指名馬エンティティ（結合なし）
+ * 指名馬エンティティ
  */
 @Table(name = "nomination")
 @Entity
@@ -27,14 +26,20 @@ public class Nomination extends TableEntityBase {
   @Column(name = "year", nullable = false)
   private Integer year;
 
+  @Column(name = "owner_id", nullable = false)
+  private Integer ownerId;
+
   // @Column(name = "user_id", nullable = false)
   // private Integer userId;
+
+  @Column(name = "status")
+  private Integer status;
 
   @Column(name = "nominate_rank", nullable = false)
   private Integer nominateRank;
 
-  @Column(name = "horse_id", nullable = false)
-  private Integer horseId;
+  @Column(name = "crop_id", nullable = false)
+  private Integer cropId;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "nomination_status", nullable = false)
@@ -53,4 +58,9 @@ public class Nomination extends TableEntityBase {
   public void setNominationStatus(NominationStatus nominationStatus) {
     this.nominationStatus = nominationStatus;
   }
+
+  @OneToOne
+  @JoinColumn(insertable = false, updatable = false)
+  private Crop crop;
+
 }
