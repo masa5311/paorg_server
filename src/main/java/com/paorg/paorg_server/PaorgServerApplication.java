@@ -33,6 +33,7 @@ public class PaorgServerApplication {
 
   /**
    * CORS対策
+   *
    * @return CORS対策追加後の設定
    */
   @Bean
@@ -40,9 +41,10 @@ public class PaorgServerApplication {
     return new WebMvcConfigurer() {
       @Override
       public void addCorsMappings(CorsRegistry registry) {
-        // TODO 環境別の指定追加
-        // registry.addMapping("/*").allowedOrigins("http://localhost:3000");
-        registry.addMapping("/*").allowedOrigins("http://192.168.1.5:3000");
+        // 本番用
+        registry.addMapping("/*")
+          .allowedOrigins("http://tk2-121-61396.vs.sakura.ne.jp/",
+            "http://153.121.67.150/");
       }
     };
   }

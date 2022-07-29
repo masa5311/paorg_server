@@ -2,6 +2,19 @@ plugins {
     id 'org.springframework.boot' version '2.5.5'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id "war"
+}
+
+bootWar {
+    // warファイル名
+    archiveBaseName = "api"
+    // バージョンは付けない
+    archiveVersion = ""
+}
+
+war {
+    // plain付きwarを生成しない
+    enabled = false
 }
 
 group = 'com.paorg'
