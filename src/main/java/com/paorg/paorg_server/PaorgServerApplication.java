@@ -43,7 +43,7 @@ public class PaorgServerApplication {
       public void addCorsMappings(CorsRegistry registry) {
         // ステージング環境用
         registry.addMapping("/*").allowedOrigins("http://192.168.1.5",
-          "http://localhost");
+          "https://192.168.1.5", "http://localhost");
       }
     };
   }
