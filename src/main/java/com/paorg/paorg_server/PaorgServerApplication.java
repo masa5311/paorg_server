@@ -43,8 +43,7 @@ public class PaorgServerApplication {
       public void addCorsMappings(CorsRegistry registry) {
         // 本番用
         registry.addMapping("/*")
-          .allowedOrigins("http://tk2-121-61396.vs.sakura.ne.jp/",
-            "http://153.121.67.150/");
+          .allowedOrigins("https://paorg.jp/");
       }
     };
   }
