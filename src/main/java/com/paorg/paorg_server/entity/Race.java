@@ -23,6 +23,9 @@ public class Race {
   @Column(name = "race_no", nullable = false)
   private Integer raceNo;
 
+  @Column(name = "special_race_code", length = 4)
+  private String specialRaceCode;
+
   @Column(name = "name")
   private String name;
 
