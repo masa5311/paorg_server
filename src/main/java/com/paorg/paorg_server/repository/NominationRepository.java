@@ -76,11 +76,12 @@ public interface NominationRepository extends
    * @param nominationId レース結果取得対象
    * @return 指名馬のレース結果
    */
-  @Query("select new com.paorg.paorg_server.bean.RaceResultBean(r.name, r" +
-    ".raceCondition, rg.code, rg.value, rbh.rank, rd.point) from Nomination n" +
+  @Query("select new com.paorg.paorg_server.bean.RaceResultBean(r.name, sr.value," +
+    " r.raceCondition, rg.code, rg.value, rbh.rank, rd.point) from Nomination n" +
     " join Crop c on n.id = :nominationId and n.cropId = c.id" +
     " join RaceByHorse rbh on c.id = rbh.horseId" +
     " join Race r on rbh.raceId = r.id" +
+    " left outer join SpecialRace sr on r.specialRaceCode = sr.code" +
     " join RaceCondition rc on r.raceConditionCode = rc.code" +
     " left outer join RaceGrade rg on r.raceGrade = rg.code" +
     " join Rule r2 on r2.groupId = :groupId" +
