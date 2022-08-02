@@ -23,7 +23,11 @@ import java.util.Arrays;
 @Setter
 public class RaceResultBean extends BeanBase {
   /** レース名 */
+  @JsonIgnore
   private RaceName raceName;
+  /** レース名 */
+  @JsonIgnore
+  private RaceName specialRaceName;
   /** 条件コード */
   @JsonIgnore
   private Code conditionCode;
@@ -39,11 +43,14 @@ public class RaceResultBean extends BeanBase {
   /** ランキング */
   private Integer ranking;
   /** ポイント */
+  @JsonIgnore
   private Point point;
 
-  public RaceResultBean(String raceName, RaceCondition condition,
+  public RaceResultBean(String raceName, String specialRaceName,
+    RaceCondition condition,
     String gradeCode, String gradeName, Integer ranking, Integer point) {
     this.raceName = new RaceName(raceName);
+    this.specialRaceName = new RaceName(specialRaceName);
     this.conditionCode = new Code(condition.getCode());
     this.conditionName = new RaceName(condition.getValue());
     this.gradeCode = new Code(gradeCode);
@@ -70,7 +77,7 @@ public class RaceResultBean extends BeanBase {
    *   2.重賞以外
    *    レース名 + (条件名 + グレード名)
    *
-   * @return
+   * @return レース名
    */
   @JsonProperty(value = "raceName")
   @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -79,28 +86,38 @@ public class RaceResultBean extends BeanBase {
       this.conditionCode.getValue());
     GradeEnum gradeEnum = GradeEnum.getByCode(this.gradeCode.getValue());
 
+    String raceName = null;
+
     switch (conditionEnum) {
       case _701:
       case _703:
-        return this.conditionName.getValue();
+        raceName = this.conditionName.getValue();
+        break;
       case _005:
         if (this.gradeCode.getValue() == null) {
-          return this.conditionName.getValue();
+          raceName = this.conditionName.getValue();
+          break;
         }
-        return this.raceName.getValue() + "(" + this.conditionName.getValue()
+        raceName = this.raceName.getValue() + "(" + this.conditionName.getValue()
           + " " + this.gradeName.getValue() + ")";
+        break;
       default:
         switch (gradeEnum) {
           case A:
           case B:
           case C:
           case D:
-            return this.raceName.getValue() + "(" + this.gradeName.getValue() + ")";
+            raceName = this.specialRaceName.getValue() + "(" + this.gradeName.getValue() + ")";
+            break;
           default:
-            return this.raceName.getValue() + "(" + this.conditionName.getValue()
+            raceName = this.raceName.getValue() + "(" + this.conditionName.getValue()
               + " " + this.gradeName.getValue() + ")";
+            break;
         }
+        break;
     }
+
+    return raceName.replace("ステークス", "S");
   }
 
   @JsonProperty(value = "point")
